@@ -280,8 +280,8 @@ export default function AboutPage() {
                     <h3 className="text-2xl font-bold text-gray-800 mb-2">
                       Gimbason Junior <span className="text-primary font-bold">ACIPM, HRPL, M.HCD, M.IPS</span>
                     </h3>
-                    <p className="text-primary font-medium mb-4 text-lg">Chief Executive Officer</p>
-                    <p className="text-gray-600 mb-6 leading-relaxed">As our CEO, Gimbason Junior leads GIGEE Consult with vision and excellence, driving our mission to empower lives through excellent service delivery across all our business areas.</p>
+                    <p className="text-primary font-medium mb-4 text-lg">CEO/President</p>
+                    <p className="text-gray-600 mb-6 leading-relaxed">As our CEO/President, Gimbason Junior leads GIGEE Consult with vision and excellence, driving our mission to empower lives through excellent service delivery across all our business areas.</p>
                     
                     <div className="flex space-x-4">
                       <a href="https://www.linkedin.com/in/gimbason-junior-acipm-hrpl-m-hcd-m-ips-a4a894125" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary transition-colors p-2 hover:bg-gray-100 rounded-full">

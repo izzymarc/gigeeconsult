@@ -41,7 +41,7 @@ export default function TestimonialsSection() {
     {
       id: 3,
       name: "Elizabeth Okafor",
-      role: "Chief Executive Officer",
+      role: "CEO/President",
       company: "Horizon Enterprises",
       content: "I've collaborated with many consulting firms over my career, but GIGEE Consult stands out for their commitment to excellence and genuine partnership approach. They don't just provide solutions – they ensure you have the tools to sustain success.",
       avatar: "/images/testimonials/avatar-3.jpg",
