@@ -42,7 +42,7 @@ export default function AboutPage() {
             >
               <img 
                 src={ceoImage} 
-                alt="CEO Portrait - Full Size" 
+                alt="CEO/President Portrait - Full Size" 
                 className="max-w-full max-h-[90vh] object-contain"
               />
             </div>
@@ -263,12 +263,12 @@ export default function AboutPage() {
                   >
                     <img 
                       src={ceoImage} 
-                      alt="CEO Portrait - Gimbason Junior" 
+                      alt="CEO/President Portrait - Gimbason Junior" 
                       className="w-full h-[600px] object-cover object-center transition-transform duration-500 group-hover:scale-105"
                       onError={(e) => {
                         // Fallback if image fails to load
                         const target = e.target as HTMLImageElement;
-                        target.src = "https://via.placeholder.com/400x500?text=CEO";
+                        target.src = "https://via.placeholder.com/400x500?text=CEO/President";
                       }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center">
