@@ -167,8 +167,8 @@ export default function Header() {
     <motion.header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-sm ${
         isScrolled 
-          ? "py-2 bg-white/95 dark:bg-gray-950/95 shadow-sm border-b border-gray-100 dark:border-gray-800" 
-          : "py-3 bg-white/90 dark:bg-gray-950/90 border-b border-gray-100 dark:border-gray-800"
+          ? "py-1 sm:py-2 bg-white/95 dark:bg-gray-950/95 shadow-sm border-b border-gray-100 dark:border-gray-800" 
+          : "py-2 sm:py-3 bg-white/90 dark:bg-gray-950/90 border-b border-gray-100 dark:border-gray-800"
       }`}
       style={{ 
         opacity: headerOpacity,
@@ -178,17 +178,18 @@ export default function Header() {
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <div className="container mx-auto px-4 max-w-6xl">
+      <div className="container mx-auto px-3 sm:px-4 max-w-6xl">
         <div className="flex items-center justify-between">
           {/* Gigee-style Logo */}
           <motion.div
             variants={logoVariants}
             initial="initial"
             animate="animate"
+            className="flex-shrink-0"
           >
             <Link href="/" className="flex items-center group">
-              <img src="/images/logo.jpeg" alt="GIGEE Consult Logo" className="h-16 sm:h-20 w-auto mr-2 sm:mr-3 rounded" />
-              <span className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white tracking-tight group-hover:text-primary transition-colors duration-300">
+              <img src="/images/logo.jpeg" alt="GIGEE Consult Logo" className="h-10 w-auto mr-2 sm:h-16 sm:mr-3 rounded" />
+              <span className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white tracking-tight group-hover:text-primary transition-colors duration-300">
                 GIGEE<span className="text-orange-500">Consult</span>
               </span>
             </Link>
@@ -249,39 +250,43 @@ export default function Header() {
           </nav>
           
           {/* Right Side Actions - Gigee style */}
-          <div className="flex items-center space-x-5">
+          <div className="flex items-center">
             <motion.button 
               aria-label="Search"
               className="p-1 text-gray-700 dark:text-gray-200 hover:text-orange-500 dark:hover:text-orange-500 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Search size={18} />
+              <Search size={16} className="sm:w-[18px] sm:h-[18px]" />
             </motion.button>
             
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <LanguageSelector />
-            </motion.div>
+            <div className="hidden sm:block ml-5">
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <LanguageSelector />
+              </motion.div>
+            </div>
             
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ThemeToggle />
-            </motion.div>
+            <div className="hidden sm:block ml-5">
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ThemeToggle />
+              </motion.div>
+            </div>
             
             {/* Mobile Menu Trigger */}
             <motion.button 
-              className="ml-2 md:hidden p-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-all"
+              className="ml-3 md:hidden p-1 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-all"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
             </motion.button>
           </div>
         </div>
