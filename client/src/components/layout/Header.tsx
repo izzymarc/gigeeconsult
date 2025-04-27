@@ -18,7 +18,20 @@ export default function Header() {
   
   // Navigation links - GIGEEConsult style with industries and capabilities
   const navLinks = [
-    { href: "/insights", label: t('nav.insights') },
+    { 
+      href: "#", 
+      label: t('nav.insights'),
+      dropdown: true,
+      submenu: [
+        { href: "/insights", label: "All Insights" },
+        { href: "/insights/category/strategy", label: "Strategy" },
+        { href: "/insights/category/leadership", label: "Leadership" },
+        { href: "/insights/category/operations", label: "Operations" },
+        { href: "/insights/category/analytics", label: "Analytics" },
+        { href: "/insights/category/innovation", label: "Innovation" },
+        { href: "/insights/category/sustainability", label: "Sustainability" },
+      ]
+    },
     { 
       href: "#", 
       label: t('nav.industries'),

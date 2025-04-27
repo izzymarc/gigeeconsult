@@ -4,6 +4,7 @@ import HeroSection from "../components/home/HeroSection";
 import ServicesSection from "../components/home/ServicesSection";
 import GigeeCTA from "../components/home/GigeeCTA";
 import ContactSection from "../components/home/ContactSection";
+import FeaturedInsights from "../components/insights/FeaturedInsights";
 import { Helmet } from "react-helmet";
 import { ArrowUp } from "lucide-react";
 
@@ -65,6 +66,9 @@ export default function HomePage() {
         
         {/* Services Section */}
         <ServicesSection />
+        
+        {/* Featured Insights */}
+        <FeaturedInsights />
         
         {/* Contact Section */}
         <ContactSection />
