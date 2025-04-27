@@ -261,6 +261,7 @@ export default function BlogPage() {
 }
 
 function FeaturedPostCard({ post, index }: { post: any, index: number }) {
+  const { t } = useI18n();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -325,6 +326,7 @@ function FeaturedPostCard({ post, index }: { post: any, index: number }) {
 }
 
 function PostCard({ post, index }: { post: any, index: number }) {
+  const { t } = useI18n();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
