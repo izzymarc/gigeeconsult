@@ -174,7 +174,7 @@ export default function ContactPage() {
                       </p>
                       <p className="text-gray-600 mb-2">
                         <span className="font-medium">Kaduna Office:</span><br />
-                        #3, Gimbason Street,<br />
+                        #6, Gimbason Street,<br />
                         Mahuta New Extension,<br />
                         Off NNPC Junction, Kaduna.
                       </p>

@@ -113,7 +113,7 @@ export default function ContactSection() {
     },
     {
       city: "Kaduna",
-      address: "#3, Gimbason Street, Mahuta New Extension, Off NNPC Junction, Kaduna.",
+      address: "#6, Gimbason Street, Mahuta New Extension, Off NNPC Junction, Kaduna.",
       phone: "+234 809 111 6342",
     },
     {

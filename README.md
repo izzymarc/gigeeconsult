@@ -185,5 +185,5 @@ For any questions or support related to this website, please contact:
 - **Phone:** +234 812 222 4471 | +234 809 111 6342
 - **Locations:**
   - Kano Office: #67, Babban Kwari Street, Off Lamido Street, Nasarawa GRA, Kano State
-  - Kaduna Office: #3, Gimbason Street, Mahuta New Extension, Off NNPC Junction, Kaduna
+  - Kaduna Office: #6, Gimbason Street, Mahuta New Extension, Off NNPC Junction, Kaduna
   - Abuja Office: #21, Nathaniel Ogwuche Crescent, Dawaki, Abuja

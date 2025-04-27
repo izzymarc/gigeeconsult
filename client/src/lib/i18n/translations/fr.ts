@@ -131,7 +131,7 @@ const frTranslations = {
     address: {
       title: "Nos bureaux",
       kano: "#67, Babban Kwari Street, Off Lamido Street, Nasarawa GRA, Kano State.",
-      kaduna: "#3, Gimbason Street, Mahuta New Extension, Off NNPC Junction, Kaduna.",
+      kaduna: "#6, Gimbason Street, Mahuta New Extension, Off NNPC Junction, Kaduna.",
       abuja: "#21, Nathaniel Ogwuche Crescent, Dawaki, Abuja.",
       phone1: "+234 812 222 4471",
       phone2: "+234 809 111 6342",

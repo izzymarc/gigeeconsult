@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ChevronRight, Users, BarChart, Briefcase, Award, ArrowRight, Linkedin, Twitter, Mail, X } from "lucide-react";
+import { ChevronRight, Users, BarChart, Briefcase, Award, ArrowRight, Linkedin, Twitter, Mail, X, Facebook, Instagram } from "lucide-react";
 import { useI18n } from "../lib/i18n/i18n-provider";
 import { Button } from "../components/ui/button";
 import { Helmet } from "react-helmet";
@@ -284,11 +284,14 @@ export default function AboutPage() {
                     <p className="text-gray-600 mb-6 leading-relaxed">As our CEO/President, Gimbason Junior leads GIGEE Consult with vision and excellence, driving our mission to empower lives through excellent service delivery across all our business areas.</p>
                     
                     <div className="flex space-x-4">
-                      <a href="https://www.linkedin.com/in/gimbason-junior-acipm-hrpl-m-hcd-m-ips-a4a894125" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary transition-colors p-2 hover:bg-gray-100 rounded-full">
+                      <a href="https://www.linkedin.com/company/gigee-consult" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary transition-colors p-2 hover:bg-gray-100 rounded-full">
                         <Linkedin size={20} />
                       </a>
-                      <a href="#" className="text-gray-500 hover:text-primary transition-colors p-2 hover:bg-gray-100 rounded-full">
-                        <Twitter size={20} />
+                      <a href="https://www.facebook.com/gigeeconsult" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary transition-colors p-2 hover:bg-gray-100 rounded-full">
+                        <Facebook size={20} />
+                      </a>
+                      <a href="https://www.instagram.com/gigee_consult" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary transition-colors p-2 hover:bg-gray-100 rounded-full">
+                        <Instagram size={20} />
                       </a>
                       <a href="mailto:gigeeconsultltd@gmail.com" className="text-gray-500 hover:text-primary transition-colors p-2 hover:bg-gray-100 rounded-full">
                         <Mail size={20} />
