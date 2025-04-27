@@ -146,7 +146,7 @@ export default function Header() {
               >
                 <Link 
                   href={link.href} 
-                  className="px-1 py-2 text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors duration-200 flex items-center after:content-[''] after:h-0.5 after:scale-x-0 after:absolute after:bottom-0 after:left-0 after:right-0 after:origin-left after:bg-primary after:transition-transform hover:after:scale-x-100 group-hover:after:scale-x-100"
+                  className="px-1 py-2 text-gray-700 dark:text-gray-200 hover:text-orange-500 dark:hover:text-orange-500 text-sm font-medium transition-colors duration-200 flex items-center after:content-[''] after:h-0.5 after:scale-x-0 after:absolute after:bottom-0 after:left-0 after:right-0 after:origin-left after:bg-orange-500 after:transition-transform hover:after:scale-x-100 group-hover:after:scale-x-100"
                 >
                   {link.label}
                   {link.dropdown && <ChevronDown className="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" />}
@@ -159,7 +159,7 @@ export default function Header() {
                         <Link 
                           key={subitem.href} 
                           href={subitem.href}
-                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900 hover:text-primary transition-all"
+                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900 hover:text-orange-500 transition-all"
                         >
                           {subitem.label}
                         </Link>
@@ -175,7 +175,7 @@ export default function Header() {
           <div className="flex items-center space-x-5">
             <motion.button 
               aria-label="Search"
-              className="p-1 text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+              className="p-1 text-gray-700 dark:text-gray-200 hover:text-orange-500 dark:hover:text-orange-500 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -219,7 +219,7 @@ export default function Header() {
                   <div key={link.href}>
                     <Link 
                       href={link.href}
-                      className="py-3 px-4 text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary font-medium border-b border-gray-100 dark:border-gray-800 flex justify-between items-center"
+                      className="py-3 px-4 text-gray-700 dark:text-gray-200 hover:text-orange-500 dark:hover:text-orange-500 font-medium border-b border-gray-100 dark:border-gray-800 flex justify-between items-center"
                       onClick={() => !link.dropdown && setIsMobileMenuOpen(false)}
                     >
                       {link.label}
@@ -232,7 +232,7 @@ export default function Header() {
                           <Link 
                             key={subitem.href} 
                             href={subitem.href}
-                            className="py-2 px-8 text-sm text-gray-700 dark:text-gray-300 block border-b border-gray-100 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                            className="py-2 px-8 text-sm text-gray-700 dark:text-gray-300 block border-b border-gray-100 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-orange-500 transition-colors"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {subitem.label}
