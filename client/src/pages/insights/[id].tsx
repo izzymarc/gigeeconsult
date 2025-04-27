@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useRoute } from "wouter";
-import { motion } from "framer-motion";
-import { Button } from "../../components/ui/button";
-import { Link } from "wouter";
-import { ChevronRight, ArrowRight, ArrowLeft, Calendar, Clock, Tag } from "lucide-react";
-import { useI18n } from "../../lib/i18n/i18n-provider";
+import React from 'react';
+import { useRoute, Link } from 'wouter';
+import { motion } from 'framer-motion';
+import { 
+  ChevronRight, 
+  Calendar, 
+  Clock, 
+  User, 
+  Tag,
+  Share2,
+  Facebook,
+  Twitter,
+  Linkedin,
+  ArrowLeft
+} from 'lucide-react';
+import { Button } from '../../components/ui/button';
+import { insights } from '../InsightsPage';
+import { formatDistanceToNow, format } from 'date-fns';
 
-// Import insights data
-import { insights } from "../InsightsPage";
-
-// Define Insight type
 interface Insight {
   id: number;
   title: string;
@@ -24,247 +31,219 @@ interface Insight {
   content: string;
 }
 
-export default function InsightDetailPage() {
-  const { t } = useI18n();
-  const [_, params] = useRoute("/insights/:id");
-  const [insight, setInsight] = useState<Insight | null>(null);
-  const [relatedInsights, setRelatedInsights] = useState<Insight[]>([]);
-  const [loading, setLoading] = useState(true);
+const InsightDetailPage: React.FC = () => {
+  // Use wouter's useRoute hook instead of Next.js useRouter
+  const [match, params] = useRoute('/insights/:id');
+  const id = params?.id;
+  
+  // Find the insight with the matching ID
+  const insight = insights.find(insight => insight.id.toString() === id);
+  
+  // Get related insights in the same category (max 3)
+  const relatedInsights = insights
+    .filter(item => item.id !== (insight?.id || null) && item.category === insight?.category)
+    .slice(0, 3);
 
-  useEffect(() => {
-    if (params?.id) {
-      // Find the insight with the matching ID
-      const foundInsight = insights.find(item => item.id.toString() === params.id);
-      
-      if (foundInsight) {
-        setInsight(foundInsight as Insight);
-        
-        // Find related insights (same category or shared tags)
-        const related = insights
-          .filter(item => 
-            item.id !== foundInsight.id && 
-            (item.category === foundInsight.category || 
-             item.tags.some(tag => foundInsight.tags.includes(tag)))
-          )
-          .slice(0, 3); // Limit to 3 related insights
-        
-        setRelatedInsights(related as Insight[]);
-      }
-    }
-    
-    setLoading(false);
-  }, [params]);
-
-  if (loading) {
+  if (!insight && id) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="loader"></div>
-      </div>
-    );
-  }
-
-  if (!insight) {
-    return (
-      <div className="pt-32 pb-16 text-center">
-        <h1 className="text-2xl font-bold mb-4">Insight not found</h1>
-        <p className="mb-6">The insight you're looking for doesn't exist or has been removed.</p>
-        <Button asChild>
-          <Link href="/insights">Back to Insights</Link>
-        </Button>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold mb-4">Insight not found</h1>
+          <p className="text-gray-600 mb-6">The insight you're looking for doesn't exist or has been removed.</p>
+          <Link href="/insights">
+            <Button>Back to Insights</Button>
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <>
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-primary to-dark text-white">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <span className="bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 inline-block">
-                {insight.category}
-              </span>
-              <h1 className="text-3xl md:text-4xl font-bold mb-4">
-                {insight.title}
-              </h1>
-              <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-200 mb-6">
-                <div className="flex items-center">
-                  <Calendar size={16} className="mr-2" />
-                  {insight.date}
-                </div>
-                <div className="flex items-center">
-                  <Clock size={16} className="mr-2" />
-                  {insight.readTime}
-                </div>
-                <div>
-                  <span className="font-medium">By {insight.author}</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Breadcrumbs */}
-      <div className="bg-gray-100 py-3">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center text-sm text-gray-600">
-            <Link href="/" className="hover:text-primary">{t('common.home')}</Link>
-            <ChevronRight size={16} className="mx-2" />
-            <Link href="/insights" className="hover:text-primary">{t('nav.insights')}</Link>
-            <ChevronRight size={16} className="mx-2" />
-            <span className="text-primary font-medium">{insight.title.substring(0, 30)}...</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Content Section */}
-      <section className="py-12 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
-              {/* Main content */}
-              <div className="prose prose-lg max-w-none">
-                <div dangerouslySetInnerHTML={{ __html: insight.content }} />
-              </div>
-              
-              {/* Tags */}
-              <div className="mt-8 pt-8 border-t border-gray-200">
-                <div className="flex flex-wrap gap-2">
-                  {insight.tags.map((tag, index) => (
-                    <span 
-                      key={index}
-                      className="bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1.5 rounded-full flex items-center"
-                    >
-                      <Tag size={14} className="mr-1 text-gray-500" />
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Author info */}
-              <div className="mt-8 p-6 bg-gray-50 rounded-lg">
-                <h3 className="text-lg font-semibold mb-2">About the Author</h3>
-                <p className="text-gray-700">
-                  {insight.author} is an expert in {insight.category.toLowerCase()} with extensive experience 
-                  advising organizations on {insight.tags.join(", ").toLowerCase()}.
-                </p>
-              </div>
-              
-              {/* Navigation */}
-              <div className="mt-8 flex justify-between">
-                <Button 
-                  asChild
-                  variant="outline"
-                  size="sm"
-                  className="flex items-center"
+    <div className="min-h-screen bg-white">
+      {insight && (
+        <>
+          {/* Hero Section */}
+          <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 py-20">
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="max-w-4xl">
+                <motion.h1 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-4xl md:text-5xl font-bold text-white mb-4"
                 >
-                  <Link href="/insights">
-                    <ArrowLeft size={16} className="mr-2" />
-                    Back to Insights
-                  </Link>
-                </Button>
-                
-                <Button 
-                  asChild
-                  variant="outline" 
-                  size="sm"
-                  className="text-primary border-primary hover:bg-primary/5"
+                  {insight.title}
+                </motion.h1>
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="text-xl text-blue-100"
                 >
-                  <Link href="/contact">
-                    Discuss this topic with our experts
-                  </Link>
-                </Button>
+                  {insight.excerpt}
+                </motion.p>
               </div>
             </div>
-            
-            <div className="lg:col-span-1">
-              {/* Sidebar */}
-              <div className="bg-gray-50 rounded-lg p-6 sticky top-24">
-                <h3 className="text-lg font-semibold mb-4 border-b border-gray-200 pb-3">Related Insights</h3>
-                <div className="space-y-6">
-                  {relatedInsights.length > 0 ? (
-                    relatedInsights.map((related) => (
-                      <div key={related.id} className="group">
-                        <Link href={`/insights/${related.id}`} className="block">
-                          <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded">
-                            {related.category}
-                          </span>
-                          <h4 className="font-medium text-gray-900 group-hover:text-primary transition-colors mt-2 mb-1">
-                            {related.title}
-                          </h4>
-                          <div className="flex items-center text-xs text-gray-500">
-                            <span>{related.date}</span>
-                            <span className="mx-2">•</span>
-                            <span>{related.readTime}</span>
-                          </div>
-                        </Link>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-gray-500 text-sm">No related insights found.</p>
-                  )}
+          </section>
+
+          {/* Breadcrumbs */}
+          <div className="bg-gray-50 py-3 border-b">
+            <div className="container mx-auto px-4">
+              <div className="flex items-center text-sm text-gray-600">
+                <Link href="/" className="hover:text-blue-600">Home</Link>
+                <ChevronRight className="h-4 w-4 mx-2" />
+                <Link href="/insights" className="hover:text-blue-600">Insights</Link>
+                <ChevronRight className="h-4 w-4 mx-2" />
+                <Link 
+                  href={`/insights/category/${insight.category.toLowerCase().replace(/\s+/g, '-')}`}
+                  className="hover:text-blue-600"
+                >
+                  {insight.category}
+                </Link>
+                <ChevronRight className="h-4 w-4 mx-2" />
+                <span className="text-gray-900 font-medium truncate max-w-[200px]">{insight.title}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Content Section */}
+          <div className="container mx-auto px-4 py-12">
+            <div className="flex flex-col lg:flex-row gap-12">
+              {/* Main Content */}
+              <div className="lg:w-2/3">
+                <div className={`mb-8 rounded-xl overflow-hidden shadow-md aspect-video ${insight.image}`}>
+                  {/* Image is a CSS class in InsightsPage */}
                 </div>
-                
-                <div className="mt-8">
-                  <h3 className="text-lg font-semibold mb-4 border-b border-gray-200 pb-3">Popular Tags</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {Array.from(new Set(insights.flatMap(i => i.tags)))
-                      .slice(0, 8)
-                      .map((tag, index) => (
-                        <Link 
-                          key={index} 
-                          href={`/insights?search=${encodeURIComponent(tag as string)}`}
-                          className="bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-medium px-3 py-1.5 rounded-full transition-colors"
-                        >
-                          {tag as string}
-                        </Link>
-                      ))}
+
+                {/* Meta information */}
+                <div className="flex flex-wrap items-center text-sm text-gray-500 mb-8 gap-y-2">
+                  <div className="flex items-center mr-6">
+                    <Calendar className="h-4 w-4 mr-2" />
+                    <span>{format(new Date(insight.date), 'MMMM d, yyyy')}</span>
+                  </div>
+                  <div className="flex items-center mr-6">
+                    <User className="h-4 w-4 mr-2" />
+                    <span>{insight.author}</span>
+                  </div>
+                  <div className="flex items-center mr-6">
+                    <Tag className="h-4 w-4 mr-2" />
+                    <Link 
+                      href={`/insights/category/${insight.category.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="hover:text-blue-600"
+                    >
+                      {insight.category}
+                    </Link>
+                  </div>
+                  <div className="flex items-center">
+                    <Clock className="h-4 w-4 mr-2" />
+                    <span>{insight.readTime}</span>
                   </div>
                 </div>
-                
-                <div className="mt-8 bg-primary/10 p-5 rounded-lg">
-                  <h3 className="text-lg font-semibold mb-3 text-primary">Stay Updated</h3>
-                  <p className="text-gray-700 text-sm mb-4">Subscribe to our newsletter for the latest insights and industry trends.</p>
-                  <Button 
-                    asChild
-                    className="w-full bg-primary hover:bg-primary/90 text-white"
-                  >
-                    <Link href="/contact?subscribe=true">
-                      Subscribe
-                    </Link>
-                  </Button>
+
+                {/* Content */}
+                <div className="prose prose-lg max-w-none">
+                  <div dangerouslySetInnerHTML={{ __html: insight.content }} />
+                </div>
+
+                {/* Tags */}
+                {insight.tags && insight.tags.length > 0 && (
+                  <div className="mt-8 pt-8 border-t">
+                    <h3 className="text-lg font-semibold mb-3">Tags</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {insight.tags.map((tag, idx) => (
+                        <span 
+                          key={idx} 
+                          className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Share */}
+                <div className="mt-8 pt-8 border-t">
+                  <h3 className="text-lg font-semibold mb-3 flex items-center">
+                    <Share2 className="h-5 w-5 mr-2" /> Share this insight
+                  </h3>
+                  <div className="flex gap-3">
+                    <Button variant="outline" size="icon" className="rounded-full">
+                      <Facebook className="h-5 w-5" />
+                    </Button>
+                    <Button variant="outline" size="icon" className="rounded-full">
+                      <Twitter className="h-5 w-5" />
+                    </Button>
+                    <Button variant="outline" size="icon" className="rounded-full">
+                      <Linkedin className="h-5 w-5" />
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Back to insights */}
+                <div className="mt-12">
+                  <Link href="/insights">
+                    <Button variant="outline" className="flex items-center">
+                      <ArrowLeft className="h-4 w-4 mr-2" /> Back to all insights
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Sidebar */}
+              <div className="lg:w-1/3">
+                {/* Related Insights */}
+                <div className="bg-gray-50 rounded-xl p-6 mb-8">
+                  <h3 className="text-xl font-bold mb-4">Related Insights</h3>
+                  <div className="space-y-6">
+                    {relatedInsights.length > 0 ? (
+                      relatedInsights.map(relatedInsight => (
+                        <div key={relatedInsight.id} className="group">
+                          <Link 
+                            href={`/insights/${relatedInsight.id}`}
+                            className="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors"
+                          >
+                            {relatedInsight.title}
+                          </Link>
+                          <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                            {relatedInsight.excerpt}
+                          </p>
+                          <div className="text-xs text-gray-500 mt-2">
+                            {formatDistanceToNow(new Date(relatedInsight.date), { addSuffix: true })}
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-gray-500">No related insights found</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Categories */}
+                <div className="bg-gray-50 rounded-xl p-6">
+                  <h3 className="text-xl font-bold mb-4">Categories</h3>
+                  <div className="space-y-2">
+                    {Array.from(new Set(insights.map(i => i.category))).map((category, idx) => (
+                      <Link 
+                        key={idx}
+                        href={`/insights/category/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                        className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-gray-100"
+                      >
+                        <span className="font-medium">{category}</span>
+                        <span className="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center text-xs">
+                          {insights.filter(i => i.category === category).length}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-primary to-primary-dark text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Need Expert Guidance?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Contact our team of experts to discuss how we can help your organization implement strategies based on the latest industry insights.
-          </p>
-          <Button
-            asChild
-            size="lg"
-            className="bg-white text-primary hover:bg-gray-100"
-          >
-            <Link href="/contact">
-              Get in Touch
-            </Link>
-          </Button>
-        </div>
-      </section>
-    </>
+        </>
+      )}
+    </div>
   );
-} 
+};
+
+export default InsightDetailPage; 

@@ -163,265 +163,62 @@ export default function CaseStudiesPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-primary to-dark text-white">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Client Success Stories
-              </h1>
-              <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
-                Explore our portfolio of successful client engagements across diverse industries, showcasing our expertise in solving complex business challenges.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-secondary text-white hover:bg-secondary/90"
-                >
-                  <Link href="/contact">
-                    Discuss Your Project
-                  </Link>
-                </Button>
-              </div>
-            </motion.div>
-          </div>
+      <section className="pt-32 pb-16 bg-gradient-to-br from-primary to-secondary text-white">
+        <div className="container mx-auto px-4 text-center max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Case Studies</h1>
+            <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
+              Discover how we've helped organizations achieve measurable results through our consulting, training, and project management services.
+            </p>
+            <Button asChild size="lg" className="bg-white text-primary hover:bg-gray-100">
+              <Link href="/contact">Start Your Success Story</Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
-
-      {/* Breadcrumbs */}
-      <div className="bg-gray-100 py-3">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center text-sm text-gray-600">
-            <Link href="/" className="hover:text-primary">{t('common.home')}</Link>
-            <ChevronRight size={16} className="mx-2" />
-            <span className="text-primary font-medium">{t('nav.caseStudies')}</span>
-          </div>
-        </div>
-      </div>
 
       {/* Featured Case Studies */}
-      <section className="py-12 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Featured Success Stories</h2>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {caseStudies.filter(study => study.featured).map((study, index) => (
-              <motion.div
-                key={study.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 hover:shadow-lg transition-all"
-              >
-                <div className={`h-48 ${study.image} flex items-center justify-center p-6`}>
-                  <study.industryIcon size={64} className="text-primary/60" />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded">
-                      {study.industry}
-                    </span>
-                    {study.featured && (
-                      <span className="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded flex items-center gap-1">
-                        <BadgeCheck size={12} />
-                        Featured
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="font-bold text-xl mb-2 text-gray-900">{study.title}</h3>
-                  <p className="text-gray-600 text-sm mb-4">{study.challenge.substring(0, 100)}...</p>
-                  <div className="flex items-center justify-between">
-                    <div className="text-xs text-gray-500">
-                      Client: {study.client}
-                    </div>
-                    <Button 
-                      asChild
-                      variant="ghost" 
-                      size="sm"
-                      className="text-primary hover:text-primary-dark hover:bg-primary/5"
-                    >
-                      <Link href={`/case-studies/${study.id}`}>
-                        Read full story
-                        <ArrowRight size={14} className="ml-1" />
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Search and Filter Section */}
-      <section className="py-8 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-            <h3 className="text-xl font-bold mb-6 flex items-center">
-              <Filter size={18} className="mr-2 text-primary" />
-              Find Case Studies
-            </h3>
-            
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="relative flex-grow">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                <Input
-                  type="text"
-                  placeholder="Search by title, client, or industry..."
-                  className="pl-10"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-              <div className="flex-shrink-0">
-                <Tabs defaultValue="All Industries" className="w-full md:w-auto">
-                  <TabsList className="grid grid-cols-2 md:flex md:flex-wrap h-auto">
-                    {industries.map((industry) => (
-                      <TabsTrigger
-                        key={industry}
-                        value={industry}
-                        onClick={() => setSelectedIndustry(industry)}
-                        className="text-xs md:text-sm"
-                      >
-                        {industry}
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
-                </Tabs>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* All Case Studies */}
-      <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-gray-900">All Case Studies</h2>
-            <div className="text-sm text-gray-500">
-              Showing {filteredCaseStudies.length} of {caseStudies.length} case studies
-            </div>
-          </div>
-          
-          {filteredCaseStudies.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredCaseStudies.map((study, index) => (
-                <motion.div
-                  key={study.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
-                >
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                        <study.industryIcon className="h-5 w-5 text-primary" />
-                      </div>
-                      <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
-                        {study.industry}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-bold mb-2 text-gray-900">{study.title}</h3>
-                    <p className="text-sm text-gray-700 mb-2">Client: {study.client}</p>
-                    <div className="mb-4">
-                      <h4 className="text-sm font-semibold text-gray-900 mb-1">Challenge:</h4>
-                      <p className="text-sm text-gray-600 mb-3">{study.challenge.substring(0, 120)}...</p>
-                      <h4 className="text-sm font-semibold text-gray-900 mb-1">Key Results:</h4>
-                      <ul className="text-sm text-gray-600 mb-4 space-y-1 pl-5 list-disc">
-                        {study.results.slice(0, 2).map((result, i) => (
-                          <li key={i}>{result}</li>
-                        ))}
-                        {study.results.length > 2 && <li>And more...</li>}
-                      </ul>
-                    </div>
-                    <Button 
-                      asChild
-                      variant="link" 
-                      className="text-primary p-0 h-auto flex items-center"
-                    >
-                      <Link href={`/case-studies/${study.id}`}>
-                        Read full case study
-                        <ArrowRight size={16} className="ml-1" />
-                      </Link>
-                    </Button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16 bg-white rounded-lg shadow-sm border border-gray-100">
-              <FileText size={48} className="mx-auto text-gray-300 mb-4" />
-              <h3 className="text-xl font-semibold text-gray-700 mb-2">No case studies found</h3>
-              <p className="text-gray-500 mb-6">Try adjusting your search or filter criteria.</p>
-              <Button variant="outline" onClick={() => {setSearchQuery(""); setSelectedIndustry("All Industries");}}>
-                Clear filters
-              </Button>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Resources Section */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Additional Resources</h2>
-            <p className="text-gray-600 max-w-3xl mx-auto">
-              Explore our in-depth case studies, white papers, and industry reports for more insights into our work and methodology.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-8">Featured Case Studies</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Example case studies - replace with dynamic data as needed */}
             {[
               {
-                title: "Industry Benchmark Reports",
-                description: "Access our comprehensive industry benchmark reports covering key performance metrics across various sectors.",
-                icon: BarChart3,
-                link: "/resources/benchmark-reports"
+                title: "Digital Transformation for a Leading Bank",
+                description: "How we guided a major financial institution through a successful digital transformation, improving customer experience and operational efficiency.",
+                href: "/case-studies/digital-transformation-bank"
               },
               {
-                title: "Methodology White Papers",
-                description: "Dive into our approach and methodologies through detailed white papers written by our expert consultants.",
-                icon: LightbulbIcon,
-                link: "/resources/white-papers"
+                title: "Capacity Building in Healthcare",
+                description: "Our training programs empowered healthcare professionals to deliver better patient outcomes and adapt to new technologies.",
+                href: "/case-studies/healthcare-capacity-building"
               },
               {
-                title: "Client Testimonials",
-                description: "Hear directly from our clients about their experience working with GIGEE Consult and the results achieved.",
-                icon: Briefcase,
-                link: "/testimonials"
+                title: "Supply Chain Optimization for Retailer",
+                description: "We helped a national retailer streamline their supply chain, reducing costs and improving delivery times.",
+                href: "/case-studies/retail-supply-chain"
               }
-            ].map((resource, index) => (
+            ].map((cs, idx) => (
               <motion.div
-                key={index}
+                key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-gray-50 rounded-lg p-6 shadow-sm border border-gray-100"
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="bg-gray-50 rounded-lg p-8 shadow-sm border border-gray-100 text-left flex flex-col justify-between"
               >
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                  <resource.icon className="h-6 w-6 text-primary" />
+                <div>
+                  <h3 className="text-xl font-bold mb-3 text-gray-900">{cs.title}</h3>
+                  <p className="text-gray-600 mb-4">{cs.description}</p>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900">{resource.title}</h3>
-                <p className="text-gray-600 mb-4">{resource.description}</p>
-                <Button 
-                  asChild
-                  variant="link" 
-                  className="text-primary p-0 h-auto flex items-center"
-                >
-                  <Link href={resource.link}>
-                    Explore resources
-                    <Download size={16} className="ml-1" />
+                <Button asChild variant="ghost" className="p-0 h-auto text-primary flex items-center self-end">
+                  <Link href={cs.href}>
+                    Read More
                   </Link>
                 </Button>
               </motion.div>
@@ -431,20 +228,14 @@ export default function CaseStudiesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-primary to-primary-dark text-white">
+      <section className="py-16 bg-gradient-to-r from-primary to-secondary text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Write Your Success Story?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your Success Story?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Partner with GIGEE Consult to transform your challenges into opportunities and achieve measurable results for your organization.
+            Contact us to learn how we can help your organization achieve its goals.
           </p>
-          <Button
-            asChild
-            size="lg"
-            className="bg-white text-primary hover:bg-gray-100"
-          >
-            <Link href="/contact">
-              Start the Conversation
-            </Link>
+          <Button asChild size="lg" className="bg-white text-primary hover:bg-gray-100">
+            <Link href="/contact">Get in Touch</Link>
           </Button>
         </div>
       </section>

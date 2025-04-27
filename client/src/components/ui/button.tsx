@@ -22,17 +22,17 @@ const buttonVariants = cva(
         accent: "bg-accent text-white hover:bg-accent/90 shadow-sm hover:shadow-md hover:translate-y-[-2px]",
         
         // Original Gigee style variants 
-        gigeeFilled: "bg-primary text-white hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md hover:translate-y-[-2px]",
-        gigeeOutline: "border-2 border-primary bg-transparent text-primary hover:bg-primary/10 transition-all duration-300 hover:translate-y-[-2px]",
-        gigeeGhost: "text-primary hover:bg-primary/10 transition-all duration-300 hover:translate-y-[-2px]",
+        gigeeFilled: "bg-orange-500 text-white hover:bg-orange-600 transition-all duration-300 shadow-sm hover:shadow-md hover:translate-y-[-2px]",
+        gigeeOutline: "border-2 border-orange-500 bg-transparent text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-900/10 transition-all duration-300 hover:translate-y-[-2px]",
+        gigeeGhost: "text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-900/10 transition-all duration-300 hover:translate-y-[-2px]",
         
         // Orange variants (using secondary color)
-        orangeFilled: "bg-secondary text-white hover:bg-secondary/90 transition-all duration-300 shadow-sm hover:shadow-md hover:translate-y-[-2px]",
-        orangeOutline: "border-2 border-secondary bg-transparent text-secondary hover:bg-secondary/10 transition-all duration-300 hover:translate-y-[-2px]",
+        orangeFilled: "bg-orange-500 text-white hover:bg-orange-600 transition-all duration-300 shadow-sm hover:shadow-md hover:translate-y-[-2px]",
+        orangeOutline: "border-2 border-orange-500 bg-transparent text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-900/10 transition-all duration-300 hover:translate-y-[-2px]",
         
         // Blue variants (using accent color)
-        blueFilled: "bg-accent text-white hover:bg-accent/90 transition-all duration-300 shadow-sm hover:shadow-md hover:translate-y-[-2px]",
-        blueOutline: "border-2 border-accent bg-transparent text-accent hover:bg-accent/10 transition-all duration-300 hover:translate-y-[-2px]",
+        blueFilled: "bg-blue-600 text-white hover:bg-blue-700 transition-all duration-300 shadow-sm hover:shadow-md hover:translate-y-[-2px]",
+        blueOutline: "border-2 border-blue-600 bg-transparent text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-all duration-300 hover:translate-y-[-2px]",
       },
       size: {
         default: "h-10 px-4 py-2",

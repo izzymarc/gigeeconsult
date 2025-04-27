@@ -55,8 +55,8 @@ export default function HomePage() {
   return (
     <>
       <Helmet>
-        <title>GIGEEConsult | Global Management Consulting</title>
-        <meta name="description" content="GIGEEConsult is a global management consulting firm committed to helping organizations create Change that Matters." />
+        <title>GIGEE CONSULT LTD | Empowering Lives Through Excellent Service Delivery</title>
+        <meta name="description" content="GIGEE CONSULT LTD is a dynamic and results-driven firm specializing in Consultancy Services, Capacity Building, Project Management, and General Supplies." />
       </Helmet>
       
       {/* Main Content with Gigee-style layout */}

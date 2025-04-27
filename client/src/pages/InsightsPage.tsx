@@ -19,6 +19,7 @@ import {
 import { Input } from "../components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { useI18n } from "../lib/i18n/i18n-provider";
+import FeaturedInsights from "../components/insights/FeaturedInsights";
 
 // Insights data
 export const insights = [
@@ -330,225 +331,67 @@ export default function InsightsPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-primary to-dark text-white">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Insights & Thought Leadership
-              </h1>
-              <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
-                Expert analysis, industry trends, and strategic perspectives to help your organization navigate complex challenges and seize new opportunities.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-secondary text-white hover:bg-secondary/90"
-                >
-                  <Link href="/contact">
-                    Subscribe to Our Newsletter
-                  </Link>
-                </Button>
-              </div>
-            </motion.div>
-          </div>
+      <section className="pt-32 pb-16 bg-gradient-to-br from-primary to-secondary text-white">
+        <div className="container mx-auto px-4 text-center max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Insights & Thought Leadership</h1>
+            <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
+              Explore our latest articles, research, and expert perspectives on strategy, operations, technology, and industry trends.
+            </p>
+            <Button asChild size="lg" className="bg-white text-primary hover:bg-gray-100">
+              <Link href="/contact">Contact Our Experts</Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
 
-      {/* Breadcrumbs */}
-      <div className="bg-gray-100 py-3">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center text-sm text-gray-600">
-            <Link href="/" className="hover:text-primary">{t('common.home')}</Link>
-            <ChevronRight size={16} className="mx-2" />
-            <span className="text-primary font-medium">{t('nav.insights')}</span>
-          </div>
-        </div>
-      </div>
+      {/* Featured Insights */}
+      <FeaturedInsights 
+        title="Featured Insights" 
+        description="Handpicked articles and research from our team of experts."
+        showViewAll={false}
+      />
 
-      {/* Featured Insight */}
-      <section className="py-12 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-            <div className="lg:col-span-3">
-              <div className="relative rounded-lg overflow-hidden h-full">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-primary opacity-90"></div>
-                <div className="relative p-8 md:p-12 h-full flex flex-col justify-end text-white z-10">
-                  <span className="bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 w-fit">
-                    FEATURED
-                  </span>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-3">The Future of Consulting: AI, Human Expertise, and Value Creation</h2>
-                  <p className="mb-6 text-white/90">How artificial intelligence is transforming the consulting industry and creating new opportunities for value delivery.</p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-sm">
-                      <span>By Dr. Isaac Ahmed</span>
-                      <span className="mx-2">•</span>
-                      <span>May 2023</span>
-                    </div>
-                    <Button 
-                      asChild
-                      variant="outline" 
-                      className="border-white text-white hover:bg-white/10"
-                    >
-                      <Link href="/insights/future-of-consulting">
-                        Read More
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="lg:col-span-2">
-              <div className="bg-gray-50 rounded-lg p-6 h-full">
-                <div className="flex items-center gap-2 text-primary font-semibold mb-4">
-                  <TrendingUp size={20} />
-                  <h3 className="text-lg">Trending Insights</h3>
-                </div>
-                <div className="space-y-4">
-                  {insights.slice(0, 3).map((insight, index) => (
-                    <div key={index} className="border-b border-gray-200 pb-4 last:border-0 last:pb-0">
-                      <Link href={`/insights/${insight.id}`} className="group">
-                        <h4 className="font-medium text-gray-900 group-hover:text-primary transition-colors mb-1">
-                          {insight.title}
-                        </h4>
-                        <div className="flex items-center text-xs text-gray-500">
-                          <span>{insight.date}</span>
-                          <span className="mx-2">•</span>
-                          <span>{insight.readTime}</span>
-                        </div>
-                      </Link>
-                    </div>
-                  ))}
-                  <Button 
-                    asChild
-                    variant="link" 
-                    className="text-primary p-0 h-auto flex items-center mt-2"
-                  >
-                    <Link href="/blog">
-                      View all insights
-                      <ArrowRight size={14} className="ml-1" />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Insights and Filters */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold mb-10 text-center">
-            Explore Our Latest Insights
-          </h2>
-
-          {/* Search and Filter Bar */}
-          <div className="flex flex-col md:flex-row gap-4 mb-8">
-            <div className="relative flex-grow">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-              <Input
-                type="text"
-                placeholder="Search insights..."
-                className="pl-10"
-                value={searchQuery}
-                onChange={handleSearchChange}
-              />
-            </div>
-            <div className="flex-shrink-0">
-              <Tabs defaultValue="All" className="w-full md:w-auto">
-                <TabsList className="grid grid-cols-2 md:flex md:flex-wrap h-auto">
-                  {categories.map((category) => (
-                    <TabsTrigger
-                      key={category}
-                      value={category}
-                      onClick={() => handleCategoryChange(category)}
-                      className="text-xs md:text-sm"
-                    >
-                      {category}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-              </Tabs>
-            </div>
-          </div>
-
-          {/* Insights Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredInsights.length > 0 ? (
-              filteredInsights.map((insight) => (
-                <motion.div
-                  key={insight.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
-                >
-                  <div className={`h-48 ${insight.image} flex items-center justify-center p-6`}>
-                    <insight.icon size={64} className="text-primary/40" />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="bg-primary/10 text-primary text-xs font-medium px-2.5 py-0.5 rounded">
-                        {insight.category}
-                      </span>
-                      <span className="text-gray-500 text-xs">{insight.readTime}</span>
-                    </div>
-                    <h3 className="font-bold text-xl mb-2">{insight.title}</h3>
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">{insight.excerpt}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="text-xs text-gray-500">
-                        {insight.date} • {insight.author}
-                      </div>
-                      <Button 
-                        asChild
-                        variant="ghost" 
-                        size="sm"
-                        className="text-primary hover:text-primary-dark hover:bg-primary/5"
-                      >
-                        <Link href={`/insights/${insight.id}`}>
-                          Read more
-                          <ArrowRight size={14} className="ml-1" />
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </motion.div>
-              ))
-            ) : (
-              <div className="col-span-full text-center py-12">
-                <BookOpen size={48} className="mx-auto text-gray-300 mb-4" />
-                <h3 className="text-xl font-semibold text-gray-700 mb-2">No insights found</h3>
-                <p className="text-gray-500">Try adjusting your search or filter criteria.</p>
-              </div>
-            )}
+      {/* Categories */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-8">Explore by Category</h2>
+          <div className="flex flex-wrap justify-center gap-6">
+            {[
+              { label: "Strategy", href: "/insights/category/strategy" },
+              { label: "Operations", href: "/insights/category/operations" },
+              { label: "Technology", href: "/insights/category/technology" },
+              { label: "Leadership", href: "/insights/category/leadership" },
+              { label: "Healthcare", href: "/insights/category/healthcare" },
+              { label: "Retail", href: "/insights/category/retail" },
+              { label: "Sustainability", href: "/insights/category/sustainability" },
+              { label: "Analytics", href: "/insights/category/analytics" },
+              { label: "Future of Work", href: "/insights/category/future-of-work" },
+              { label: "Supply Chain", href: "/insights/category/supply-chain" },
+              { label: "Digital Transformation", href: "/insights/category/digital-transformation" },
+            ].map((cat) => (
+              <Button asChild key={cat.href} variant="outline" className="text-primary border-primary">
+                <Link href={cat.href}>{cat.label}</Link>
+              </Button>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-primary to-primary-dark text-white">
+      <section className="py-16 bg-gradient-to-r from-primary to-secondary text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Stay Informed with Our Expert Insights</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Have a Question or Want to Collaborate?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Subscribe to our newsletter to receive the latest insights, industry trends, and strategic perspectives directly to your inbox.
+            Reach out to our team for custom research, interviews, or to discuss your organization's unique challenges.
           </p>
-          <div className="max-w-lg mx-auto flex flex-col sm:flex-row gap-3">
-            <Input 
-              type="email" 
-              placeholder="Enter your email address" 
-              className="bg-white/20 text-white placeholder:text-white/70 border-white/30"
-            />
-            <Button className="bg-white text-primary hover:bg-gray-100">
-              Subscribe
-            </Button>
-          </div>
+          <Button asChild size="lg" className="bg-white text-primary hover:bg-gray-100">
+            <Link href="/contact">Get in Touch</Link>
+          </Button>
         </div>
       </section>
     </>

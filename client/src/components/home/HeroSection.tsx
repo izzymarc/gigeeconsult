@@ -128,7 +128,7 @@ export default function HeroSection() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mb-6"
             >
-              GIGEEConsult delivers transformative consultancy, capacity building, project management, and supply services that help organizations navigate unique challenges and achieve sustainable growth.
+              GIGEE CONSULT LTD is a dynamic and results-driven firm specializing in Consultancy Services, Capacity Building, Project Management, and General Supplies. We empower lives through excellent service delivery.
             </motion.p>
             
             <motion.div
@@ -166,7 +166,7 @@ export default function HeroSection() {
                 className="group transition-all hover:shadow-md"
                 onClick={(e) => handleNavClick(e, "/#about")}
               >
-                <span className="relative">About GIGEEConsult</span>
+                <span className="relative">About GIGEE Consult</span>
                 <motion.div
                   initial={{ x: 0, y: 0 }}
                   whileHover={{ x: 3, y: -3 }}

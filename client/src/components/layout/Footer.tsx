@@ -115,10 +115,12 @@ export default function Footer() {
           {/* Company Info */}
           <motion.div className="md:col-span-1" variants={itemVariants}>
             <Link href="/" className="inline-block mb-6">
-              <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                GIGEE
-                <span className="text-orange-500">Consult</span>
-              </span>
+              <div className="flex items-center">
+                <img src="/images/logo2.jpeg" alt="GIGEE Consult Logo" className="h-16 w-auto mr-3 rounded" />
+                <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                  GIGEE<span className="text-orange-500">Consult</span>
+                </span>
+              </div>
             </Link>
             
             <p className="text-gray-600 dark:text-gray-300 mb-6 text-sm">
@@ -127,10 +129,10 @@ export default function Footer() {
             
             <div className="flex space-x-4 mb-6">
               {[
-                { icon: <Linkedin size={20} />, label: "LinkedIn", href: "#" },
+                { icon: <Linkedin size={20} />, label: "LinkedIn", href: "https://www.linkedin.com/in/gimbason-junior-acipm-hrpl-m-hcd-m-ips-a4a894125?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" },
                 { icon: <Twitter size={20} />, label: "Twitter", href: "#" },
-                { icon: <Facebook size={20} />, label: "Facebook", href: "#" },
-                { icon: <Instagram size={20} />, label: "Instagram", href: "#" }
+                { icon: <Facebook size={20} />, label: "Facebook", href: "https://www.facebook.com/share/16YVse4JvH/?mibextid=wwXIfr" },
+                { icon: <Instagram size={20} />, label: "Instagram", href: "https://www.instagram.com/gigeeconsultltd?igsh=MTNkcTEzeWpsc3hzbQ%3D%3D&utm_source=qr" }
               ].map((social, idx) => (
                 <motion.a 
                   key={idx}
@@ -139,6 +141,8 @@ export default function Footer() {
                   aria-label={social.label}
                   whileHover={{ y: -5, scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {social.icon}
                 </motion.a>
@@ -207,6 +211,10 @@ export default function Footer() {
                 <a href={`tel:${t('footer.address.phone1')}`} className="text-gray-600 dark:text-gray-300 hover:text-orange-500 text-sm">
                   {t('footer.address.phone1')}
                 </a>
+                <br />
+                <a href={`tel:${t('footer.address.phone2')}`} className="text-gray-600 dark:text-gray-300 hover:text-orange-500 text-sm">
+                  {t('footer.address.phone2')}
+                </a>
               </div>
             </motion.div>
             <motion.div 
@@ -218,8 +226,14 @@ export default function Footer() {
               </div>
               <div>
                 <p className="text-gray-700 dark:text-gray-200 text-sm font-medium mb-1">{t('footer.address.title')}</p>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-2">
                   {t('footer.address.kano')}
+                </p>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-2">
+                  {t('footer.address.kaduna')}
+                </p>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">
+                  {t('footer.address.abuja')}
                 </p>
               </div>
             </motion.div>
