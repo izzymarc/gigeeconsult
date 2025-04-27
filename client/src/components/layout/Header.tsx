@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { useI18n } from "../../lib/i18n/i18n-provider";
 import { Button } from "../ui/button";
 import { ThemeToggle } from "../theme/theme-toggle";
+import LanguageSelector from "../language/LanguageSelector";
 import { Search, Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
@@ -17,34 +18,34 @@ export default function Header() {
   
   // Navigation links - GIGEEConsult style with industries and capabilities
   const navLinks = [
-    { href: "/insights", label: "Insights" },
+    { href: "/insights", label: t('nav.insights') },
     { 
       href: "#", 
-      label: "Industries",
+      label: t('nav.industries'),
       dropdown: true,
       submenu: [
-        { href: "/industries/financial-services", label: "Financial Services" },
-        { href: "/industries/healthcare", label: "Healthcare & Life Sciences" },
-        { href: "/industries/technology", label: "Technology & Media" },
-        { href: "/industries/retail", label: "Retail & Consumer" },
-        { href: "/industries/manufacturing", label: "Manufacturing" },
-        { href: "/industries/energy", label: "Energy & Sustainability" },
+        { href: "/industries/financial-services", label: t('industries.financial') },
+        { href: "/industries/healthcare", label: t('industries.healthcare') },
+        { href: "/industries/technology", label: t('industries.technology') },
+        { href: "/industries/retail", label: t('industries.retail') },
+        { href: "/industries/manufacturing", label: t('industries.manufacturing') },
+        { href: "/industries/energy", label: t('industries.energy') },
       ]
     },
     {
       href: "#",
-      label: "Services",
+      label: t('nav.services'),
       dropdown: true,
       submenu: [
-        { href: "/services/consultancy", label: "Consultancy Services" },
-        { href: "/services/capacity-building", label: "Capacity Building" },
-        { href: "/services/project-management", label: "Project Management" },
-        { href: "/services/general-supplies", label: "General Supplies" },
+        { href: "/services/consultancy", label: t('services.consultancy') },
+        { href: "/services/capacity-building", label: t('services.capacity') },
+        { href: "/services/project-management", label: t('services.project') },
+        { href: "/services/general-supplies", label: t('services.supplies') },
       ]
     },
-    { href: "/case-studies", label: "Case Studies" },
-    { href: "/about", label: "About Us" },
-    { href: "/careers", label: "Careers" },
+    { href: "/case-studies", label: t('nav.caseStudies') },
+    { href: "/about", label: t('nav.about') },
+    { href: "/careers", label: t('nav.careers') },
   ];
 
   // Handle scroll events to change header style
@@ -248,6 +249,13 @@ export default function Header() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
+              <LanguageSelector />
+            </motion.div>
+            
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
               <ThemeToggle />
             </motion.div>
             
@@ -332,12 +340,21 @@ export default function Header() {
                   </div>
                 ))}
                 <div className="p-4">
+                  <div className="flex items-center justify-between mb-4 border-b border-gray-100 dark:border-gray-800 pb-4">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      {t('nav.preferences')}
+                    </span>
+                    <div className="flex items-center space-x-4">
+                      <LanguageSelector />
+                      <ThemeToggle />
+                    </div>
+                  </div>
                   <Button 
                     variant="gigeeFilled"
                     className="w-full text-white transition-all hover:shadow-md group"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Contact Us
+                    {t('nav.contact')}
                     <motion.span
                       initial={{ x: 0 }}
                       whileHover={{ x: 5 }}

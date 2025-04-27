@@ -6,8 +6,10 @@ import React, {
   useCallback,
 } from "react";
 
-// English translations
+// Import all translations
 import enTranslations from "./translations/en";
+import frTranslations from "./translations/fr";
+import esTranslations from "./translations/es";
 
 // Types
 export type Language = "en" | "fr" | "es";
@@ -25,8 +27,8 @@ const I18nContext = createContext<I18nContextType | undefined>(undefined);
 // Available translations
 const translations: Record<Language, Translations> = {
   en: enTranslations,
-  fr: enTranslations, // Placeholder for French translations
-  es: enTranslations, // Placeholder for Spanish translations
+  fr: frTranslations,
+  es: esTranslations,
 };
 
 // Load saved language from local storage or use browser language

@@ -12,16 +12,27 @@ const enTranslations = {
     success: "Success",
     search: "Search",
     allRightsReserved: "All rights reserved",
+    learnMore: "Learn More",
+    contactUs: "Contact Us",
+    backToTop: "Back to Top",
+    notFound: "Page Not Found",
+    notFoundMessage: "Sorry, the page you are looking for doesn't exist or has been moved.",
+    backToHome: "Back to Home",
   },
   nav: {
     home: "Home",
-    about: "About",
+    about: "About Us",
     services: "Services",
     insights: "Insights",
     contact: "Contact",
     menu: "Menu",
     close: "Close",
     getStarted: "Get Started",
+    preferences: "Preferences",
+    industries: "Industries",
+    caseStudies: "Case Studies",
+    careers: "Careers",
+    changeLanguage: "Change language"
   },
   buttons: {
     contact: "Get In Touch",
@@ -141,7 +152,15 @@ const enTranslations = {
       success: "Your message has been sent successfully. We'll get back to you soon!",
       error: "There was an error sending your message. Please try again."
     }
-  }
+  },
+  industries: {
+    financial: "Financial Services",
+    healthcare: "Healthcare & Life Sciences",
+    technology: "Technology & Media",
+    retail: "Retail & Consumer",
+    manufacturing: "Manufacturing",
+    energy: "Energy & Sustainability"
+  },
 };
 
 export default enTranslations; 

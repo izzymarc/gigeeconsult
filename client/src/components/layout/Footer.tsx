@@ -27,7 +27,7 @@ export default function Footer() {
         { label: t('footer.articles'), href: "/insights" },
         { label: t('footer.reports'), href: "/reports" },
         { label: t('footer.case_studies'), href: "/case-studies" },
-        { label: t('footer.newsletter'), href: "/newsletter" },
+        { label: t('footer.newsletter_section'), href: "/newsletter" },
       ]
     },
     {
@@ -76,8 +76,8 @@ export default function Footer() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Stay Updated</h3>
-              <p className="text-white/90 mb-0">Join our newsletter for industry insights and updates</p>
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{t('footer.newsletter.title')}</h3>
+              <p className="text-white/90 mb-0">{t('footer.newsletter.description')}</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -88,14 +88,14 @@ export default function Footer() {
             >
               <Input 
                 type="email" 
-                placeholder="Your email address" 
+                placeholder={t('footer.newsletter.placeholder')} 
                 className="bg-white/20 text-white placeholder:text-white/70 border-white/30 focus-visible:ring-white"
               />
               <Button 
                 variant="outline" 
                 className="bg-white text-orange-600 hover:bg-white/90 border-white hover:text-orange-700"
               >
-                Subscribe
+                {t('footer.newsletter.button')}
                 <Send className="ml-2 h-4 w-4" />
               </Button>
             </motion.div>
@@ -189,8 +189,8 @@ export default function Footer() {
             <div className="p-2 rounded-full bg-orange-100 dark:bg-orange-900/30 mr-4">
               <Mail size={16} className="text-orange-500" />
             </div>
-            <a href="mailto:contact@gigeeconsult.com" className="text-gray-600 dark:text-gray-300 hover:text-orange-500 text-sm font-medium">
-              contact@gigeeconsult.com
+            <a href={`mailto:${t('footer.address.email')}`} className="text-gray-600 dark:text-gray-300 hover:text-orange-500 text-sm font-medium">
+              {t('footer.address.email')}
             </a>
           </motion.div>
           
@@ -203,9 +203,9 @@ export default function Footer() {
                 <Phone className="text-orange-500 h-4 w-4" />
               </div>
               <div>
-                <p className="text-gray-700 dark:text-gray-200 text-sm font-medium mb-1">Phone Number</p>
-                <a href="tel:+2348122224471" className="text-gray-600 dark:text-gray-300 hover:text-orange-500 text-sm">
-                  +234 812 222 4471
+                <p className="text-gray-700 dark:text-gray-200 text-sm font-medium mb-1">{t('contact.form.phone')}</p>
+                <a href={`tel:${t('footer.address.phone1')}`} className="text-gray-600 dark:text-gray-300 hover:text-orange-500 text-sm">
+                  {t('footer.address.phone1')}
                 </a>
               </div>
             </motion.div>
@@ -217,9 +217,9 @@ export default function Footer() {
                 <MapPin className="text-orange-500 h-4 w-4" />
               </div>
               <div>
-                <p className="text-gray-700 dark:text-gray-200 text-sm font-medium mb-1">Kano Office</p>
+                <p className="text-gray-700 dark:text-gray-200 text-sm font-medium mb-1">{t('footer.address.title')}</p>
                 <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  #67, Babban Kwari Street, Off Lamido Street, Nasarawa GRA, Kano State.
+                  {t('footer.address.kano')}
                 </p>
               </div>
             </motion.div>
@@ -235,7 +235,7 @@ export default function Footer() {
           viewport={{ once: true }}
         >
           <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 md:mb-0">
-            © {currentYear} GIGEE Consult Ltd. {t('footer.rights')}
+            © {currentYear} GIGEE Consult Ltd. {t('common.allRightsReserved')}
           </p>
           <motion.div
             initial={{ scale: 1 }}
@@ -248,7 +248,7 @@ export default function Footer() {
               className="text-gray-500 hover:text-orange-500 p-2 rounded-full"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-              <span className="mr-2 text-sm">Back to Top</span>
+              <span className="mr-2 text-sm">{t('common.backToTop')}</span>
               <ArrowUpRight className="h-4 w-4" />
             </Button>
           </motion.div>
