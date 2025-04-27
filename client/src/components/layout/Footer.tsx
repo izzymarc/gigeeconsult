@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "wouter";
 import { useI18n } from "../../lib/i18n/i18n-provider";
-import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin, ArrowUpRight, Send } from "lucide-react";
+import { motion } from "framer-motion";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 export default function Footer() {
   const { t } = useI18n();
@@ -38,16 +41,83 @@ export default function Footer() {
     }
   ];
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
+
   return (
-    <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-      <div className="container mx-auto px-4 py-12 max-w-6xl">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+    <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 overflow-hidden">
+      {/* Upper banner with newsletter signup */}
+      <div className="bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-600 dark:to-orange-700">
+        <div className="container mx-auto px-4 py-10 max-w-6xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Stay Updated</h3>
+              <p className="text-white/90 mb-0">Join our newsletter for industry insights and updates</p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="flex flex-col sm:flex-row gap-3"
+            >
+              <Input 
+                type="email" 
+                placeholder="Your email address" 
+                className="bg-white/20 text-white placeholder:text-white/70 border-white/30 focus-visible:ring-white"
+              />
+              <Button 
+                variant="outline" 
+                className="bg-white text-orange-600 hover:bg-white/90 border-white hover:text-orange-700"
+              >
+                Subscribe
+                <Send className="ml-2 h-4 w-4" />
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Main footer content */}
+      <div className="container mx-auto px-4 py-16 max-w-6xl">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-4 gap-10"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           {/* Company Info */}
-          <div className="md:col-span-1">
+          <motion.div className="md:col-span-1" variants={itemVariants}>
             <Link href="/" className="inline-block mb-6">
               <span className="text-2xl font-bold text-gray-900 dark:text-white">
                 GIGEE
-                <span className="text-primary">Consult</span>
+                <span className="text-orange-500">Consult</span>
               </span>
             </Link>
             
@@ -56,80 +126,133 @@ export default function Footer() {
             </p>
             
             <div className="flex space-x-4 mb-6">
-              <a href="#" className="text-gray-500 hover:text-primary transition-colors" aria-label="LinkedIn">
-                <Linkedin size={20} />
-              </a>
-              <a href="#" className="text-gray-500 hover:text-primary transition-colors" aria-label="Twitter">
-                <Twitter size={20} />
-              </a>
-              <a href="#" className="text-gray-500 hover:text-primary transition-colors" aria-label="Facebook">
-                <Facebook size={20} />
-              </a>
-              <a href="#" className="text-gray-500 hover:text-primary transition-colors" aria-label="Instagram">
-                <Instagram size={20} />
-              </a>
+              {[
+                { icon: <Linkedin size={20} />, label: "LinkedIn", href: "#" },
+                { icon: <Twitter size={20} />, label: "Twitter", href: "#" },
+                { icon: <Facebook size={20} />, label: "Facebook", href: "#" },
+                { icon: <Instagram size={20} />, label: "Instagram", href: "#" }
+              ].map((social, idx) => (
+                <motion.a 
+                  key={idx}
+                  href={social.href} 
+                  className="text-gray-500 hover:text-orange-500 transition-colors p-2 bg-gray-100 dark:bg-gray-800 rounded-full" 
+                  aria-label={social.label}
+                  whileHover={{ y: -5, scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  {social.icon}
+                </motion.a>
+              ))}
             </div>
-          </div>
+          </motion.div>
           
           {/* Footer Columns */}
           {footerColumns.map((column, index) => (
-            <div key={index} className="md:col-span-1">
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wide mb-4">
+            <motion.div key={index} className="md:col-span-1" variants={itemVariants}>
+              <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wide mb-6 relative inline-block">
                 {column.title}
+                <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-orange-500"></span>
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-3">
                 {column.links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
+                  <motion.li 
+                    key={linkIndex}
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
                     <Link 
                       href={link.href} 
-                      className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm"
+                      className="text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors text-sm flex items-center"
                     >
                       {link.label}
+                      <ArrowUpRight className="ml-1 h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
         
         {/* Contact Information */}
-        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="flex items-center">
-            <Mail size={16} className="text-primary mr-3" />
-            <a href="mailto:contact@gigeeconsult.com" className="text-gray-600 dark:text-gray-300 hover:text-primary text-sm">
+        <motion.div 
+          className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800 grid grid-cols-1 md:grid-cols-3 gap-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <motion.div 
+            className="flex items-center"
+            whileHover={{ scale: 1.02 }}
+          >
+            <div className="p-2 rounded-full bg-orange-100 dark:bg-orange-900/30 mr-4">
+              <Mail size={16} className="text-orange-500" />
+            </div>
+            <a href="mailto:contact@gigeeconsult.com" className="text-gray-600 dark:text-gray-300 hover:text-orange-500 text-sm font-medium">
               contact@gigeeconsult.com
             </a>
-          </div>
+          </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex items-start">
-              <Phone className="mr-3 text-primary h-5 w-5 mt-0.5" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <motion.div 
+              className="flex items-start"
+              whileHover={{ scale: 1.02 }}
+            >
+              <div className="p-2 rounded-full bg-orange-100 dark:bg-orange-900/30 mr-4 mt-1">
+                <Phone className="text-orange-500 h-4 w-4" />
+              </div>
               <div>
-                <p className="text-gray-600 dark:text-gray-300 text-sm font-medium mb-0.5">Phone Number</p>
-                <a href="tel:+2348122224471" className="text-gray-600 dark:text-gray-300 hover:text-primary text-sm">
+                <p className="text-gray-700 dark:text-gray-200 text-sm font-medium mb-1">Phone Number</p>
+                <a href="tel:+2348122224471" className="text-gray-600 dark:text-gray-300 hover:text-orange-500 text-sm">
                   +234 812 222 4471
                 </a>
               </div>
-            </div>
-            <div className="flex items-start">
-              <MapPin className="mr-3 text-primary h-5 w-5 mt-0.5" />
+            </motion.div>
+            <motion.div 
+              className="flex items-start"
+              whileHover={{ scale: 1.02 }}
+            >
+              <div className="p-2 rounded-full bg-orange-100 dark:bg-orange-900/30 mr-4 mt-1">
+                <MapPin className="text-orange-500 h-4 w-4" />
+              </div>
               <div>
-                <p className="text-gray-600 dark:text-gray-300 text-sm font-medium mb-0.5">Kano Office</p>
+                <p className="text-gray-700 dark:text-gray-200 text-sm font-medium mb-1">Kano Office</p>
                 <p className="text-gray-600 dark:text-gray-300 text-sm">
                   #67, Babban Kwari Street, Off Lamido Street, Nasarawa GRA, Kano State.
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
         
         {/* Bottom Bar */}
-        <div className="mt-12 pt-6 border-t border-gray-200 dark:border-gray-800 text-center">
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
+        <motion.div 
+          className="mt-16 pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 md:mb-0">
             © {currentYear} GIGEE Consult Ltd. {t('footer.rights')}
           </p>
-        </div>
+          <motion.div
+            initial={{ scale: 1 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          >
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-gray-500 hover:text-orange-500 p-2 rounded-full"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
+              <span className="mr-2 text-sm">Back to Top</span>
+              <ArrowUpRight className="h-4 w-4" />
+            </Button>
+          </motion.div>
+        </motion.div>
       </div>
     </footer>
   );

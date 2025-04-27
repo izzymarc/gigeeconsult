@@ -9,6 +9,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const { t } = useI18n();
   const { scrollYProgress } = useScroll();
   const headerOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0.98]);
@@ -58,6 +59,11 @@ export default function Header() {
     };
   }, []);
 
+  // Toggle dropdown on mobile
+  const toggleDropdown = (label: string) => {
+    setActiveDropdown(activeDropdown === label ? null : label);
+  };
+
   // Animation variants
   const mobileMenuVariants = {
     closed: {
@@ -101,6 +107,46 @@ export default function Header() {
         ease: "easeOut"
       }
     })
+  };
+
+  const dropdownVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: -5,
+      scale: 0.95,
+      transition: {
+        duration: 0.2,
+        ease: "easeInOut"
+      }
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.2,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const mobileDropdownVariants = {
+    hidden: {
+      height: 0,
+      opacity: 0,
+      transition: {
+        duration: 0.2,
+        ease: "easeInOut"
+      }
+    },
+    visible: {
+      height: "auto",
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    }
   };
 
   return (
@@ -149,23 +195,39 @@ export default function Header() {
                   className="px-1 py-2 text-gray-700 dark:text-gray-200 hover:text-orange-500 dark:hover:text-orange-500 text-sm font-medium transition-colors duration-200 flex items-center after:content-[''] after:h-0.5 after:scale-x-0 after:absolute after:bottom-0 after:left-0 after:right-0 after:origin-left after:bg-orange-500 after:transition-transform hover:after:scale-x-100 group-hover:after:scale-x-100"
                 >
                   {link.label}
-                  {link.dropdown && <ChevronDown className="ml-1 w-4 h-4 transition-transform group-hover:rotate-180" />}
+                  {link.dropdown && (
+                    <ChevronDown className="ml-1 w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
+                  )}
                 </Link>
                 
                 {link.dropdown && (
-                  <div className="absolute left-0 mt-1 w-48 bg-white dark:bg-gray-950 shadow-md rounded-sm border border-gray-100 dark:border-gray-800 hidden group-hover:block origin-top-left transition-all opacity-0 group-hover:opacity-100 scale-95 group-hover:scale-100">
-                    <div className="py-2">
-                      {link.submenu?.map((subitem) => (
-                        <Link 
-                          key={subitem.href} 
-                          href={subitem.href}
-                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900 hover:text-orange-500 transition-all"
-                        >
-                          {subitem.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
+                  <AnimatePresence>
+                    <motion.div 
+                      className="absolute left-0 mt-1 w-48 bg-white dark:bg-gray-950 shadow-lg rounded-md border border-gray-100 dark:border-gray-800 overflow-hidden hidden group-hover:block z-50"
+                      initial="hidden"
+                      animate="visible"
+                      exit="hidden"
+                      variants={dropdownVariants}
+                    >
+                      <div className="py-1">
+                        {link.submenu?.map((subitem, idx) => (
+                          <motion.div 
+                            key={subitem.href}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: idx * 0.05, duration: 0.2 }}
+                          >
+                            <Link 
+                              href={subitem.href}
+                              className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900 hover:text-orange-500 transition-all"
+                            >
+                              {subitem.label}
+                            </Link>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
                 )}
               </motion.div>
             ))}
@@ -217,28 +279,55 @@ export default function Header() {
               <nav className="flex flex-col space-y-0">
                 {navLinks.map((link) => (
                   <div key={link.href}>
-                    <Link 
-                      href={link.href}
-                      className="py-3 px-4 text-gray-700 dark:text-gray-200 hover:text-orange-500 dark:hover:text-orange-500 font-medium border-b border-gray-100 dark:border-gray-800 flex justify-between items-center"
-                      onClick={() => !link.dropdown && setIsMobileMenuOpen(false)}
-                    >
-                      {link.label}
-                      {link.dropdown && <ChevronDown className="w-4 h-4 transition-transform" />}
-                    </Link>
+                    {link.dropdown ? (
+                      <button
+                        className="w-full py-3 px-4 text-gray-700 dark:text-gray-200 hover:text-orange-500 dark:hover:text-orange-500 font-medium border-b border-gray-100 dark:border-gray-800 flex justify-between items-center"
+                        onClick={() => toggleDropdown(link.label)}
+                      >
+                        {link.label}
+                        <ChevronDown 
+                          className={`w-4 h-4 transition-transform duration-300 ${activeDropdown === link.label ? 'rotate-180' : ''}`} 
+                        />
+                      </button>
+                    ) : (
+                      <Link 
+                        href={link.href}
+                        className="py-3 px-4 text-gray-700 dark:text-gray-200 hover:text-orange-500 dark:hover:text-orange-500 font-medium border-b border-gray-100 dark:border-gray-800 flex justify-between items-center"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                     
                     {link.dropdown && (
-                      <div className="bg-gray-50 dark:bg-gray-900">
-                        {link.submenu?.map((subitem) => (
-                          <Link 
-                            key={subitem.href} 
-                            href={subitem.href}
-                            className="py-2 px-8 text-sm text-gray-700 dark:text-gray-300 block border-b border-gray-100 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-orange-500 transition-colors"
-                            onClick={() => setIsMobileMenuOpen(false)}
+                      <AnimatePresence>
+                        {activeDropdown === link.label && (
+                          <motion.div 
+                            className="bg-gray-50 dark:bg-gray-900 overflow-hidden"
+                            variants={mobileDropdownVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="hidden"
                           >
-                            {subitem.label}
-                          </Link>
-                        ))}
-                      </div>
+                            {link.submenu?.map((subitem, idx) => (
+                              <motion.div
+                                key={subitem.href}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.05, duration: 0.2 }}
+                              >
+                                <Link 
+                                  href={subitem.href}
+                                  className="py-2 px-8 text-sm text-gray-700 dark:text-gray-300 block border-b border-gray-100 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-orange-500 transition-colors"
+                                  onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                  {subitem.label}
+                                </Link>
+                              </motion.div>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     )}
                   </div>
                 ))}
@@ -249,7 +338,13 @@ export default function Header() {
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Contact Us
-                    <ChevronDown className="ml-2 h-4 w-4 rotate-270 transition-transform group-hover:translate-x-1" />
+                    <motion.span
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ChevronDown className="ml-2 h-4 w-4 rotate-90" />
+                    </motion.span>
                   </Button>
                 </div>
               </nav>
