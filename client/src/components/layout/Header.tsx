@@ -187,8 +187,8 @@ export default function Header() {
             animate="animate"
           >
             <Link href="/" className="flex items-center group">
-              <img src="/images/logo.jpeg" alt="GIGEE Consult Logo" className="h-20 w-auto mr-3 rounded" />
-              <span className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight group-hover:text-primary transition-colors duration-300">
+              <img src="/images/logo.jpeg" alt="GIGEE Consult Logo" className="h-16 sm:h-20 w-auto mr-2 sm:mr-3 rounded" />
+              <span className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white tracking-tight group-hover:text-primary transition-colors duration-300">
                 GIGEE<span className="text-orange-500">Consult</span>
               </span>
             </Link>

@@ -104,9 +104,9 @@ export default function Footer() {
       </div>
       
       {/* Main footer content */}
-      <div className="container mx-auto px-4 py-16 max-w-6xl">
+      <div className="container mx-auto px-4 py-10 sm:py-16 max-w-6xl">
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-4 gap-10"
+          className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-10"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -114,50 +114,58 @@ export default function Footer() {
         >
           {/* Company Info */}
           <motion.div className="md:col-span-1" variants={itemVariants}>
-            <Link href="/" className="inline-block mb-6">
+            <Link href="/" className="inline-block mb-4 sm:mb-6">
               <div className="flex items-center">
-                <img src="/images/logo2.jpeg" alt="GIGEE Consult Logo" className="h-16 w-auto mr-3 rounded" />
-                <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                <img src="/images/logo.jpeg" alt="GIGEE Consult Logo" className="h-10 sm:h-12 w-auto mr-2 sm:mr-3 rounded" />
+                <span className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
                   GIGEE<span className="text-orange-500">Consult</span>
                 </span>
               </div>
             </Link>
             
-            <p className="text-gray-600 dark:text-gray-300 mb-6 text-sm">
+            <p className="text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 text-xs sm:text-sm">
               {t('footer.description')}
             </p>
             
-            <div className="flex space-x-4 mb-6">
-              {[
-                { icon: <Linkedin size={20} />, label: "LinkedIn", href: "https://www.linkedin.com/in/gimbason-junior-acipm-hrpl-m-hcd-m-ips-a4a894125?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" },
-                { icon: <Twitter size={20} />, label: "Twitter", href: "#" },
-                { icon: <Facebook size={20} />, label: "Facebook", href: "https://www.facebook.com/share/16YVse4JvH/?mibextid=wwXIfr" },
-                { icon: <Instagram size={20} />, label: "Instagram", href: "https://www.instagram.com/gigeeconsultltd?igsh=MTNkcTEzeWpsc3hzbQ%3D%3D&utm_source=qr" }
-              ].map((social, idx) => (
-                <motion.a 
-                  key={idx}
-                  href={social.href} 
-                  className="text-gray-500 hover:text-orange-500 transition-colors p-2 bg-gray-100 dark:bg-gray-800 rounded-full" 
-                  aria-label={social.label}
-                  whileHover={{ y: -5, scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {social.icon}
-                </motion.a>
-              ))}
+            <div className="flex space-x-4 mt-4">
+              <a
+                href="https://www.linkedin.com/company/gigee-consult"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-orange-500 transition-colors duration-300"
+              >
+                <Linkedin size={20} />
+                <span className="sr-only">LinkedIn</span>
+              </a>
+              <a
+                href="https://www.facebook.com/gigeeconsult"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-orange-500 transition-colors duration-300"
+              >
+                <Facebook size={20} />
+                <span className="sr-only">Facebook</span>
+              </a>
+              <a
+                href="https://www.instagram.com/gigee_consult"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-orange-500 transition-colors duration-300"
+              >
+                <Instagram size={20} />
+                <span className="sr-only">Instagram</span>
+              </a>
             </div>
           </motion.div>
           
           {/* Footer Columns */}
           {footerColumns.map((column, index) => (
             <motion.div key={index} className="md:col-span-1" variants={itemVariants}>
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wide mb-6 relative inline-block">
+              <h3 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wide mb-4 sm:mb-6 relative inline-block">
                 {column.title}
-                <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-orange-500"></span>
+                <span className="absolute -bottom-2 left-0 w-6 sm:w-8 h-0.5 bg-orange-500"></span>
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2 sm:space-y-3">
                 {column.links.map((link, linkIndex) => (
                   <motion.li 
                     key={linkIndex}
@@ -166,10 +174,10 @@ export default function Footer() {
                   >
                     <Link 
                       href={link.href} 
-                      className="text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors text-sm flex items-center"
+                      className="text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors text-xs sm:text-sm flex items-center"
                     >
                       {link.label}
-                      <ArrowUpRight className="ml-1 h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <ArrowUpRight className="ml-1 h-2.5 w-2.5 sm:h-3 sm:w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
                   </motion.li>
                 ))}
@@ -180,7 +188,7 @@ export default function Footer() {
         
         {/* Contact Information */}
         <motion.div 
-          className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800 grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="mt-8 sm:mt-16 pt-6 sm:pt-8 border-t border-gray-200 dark:border-gray-800 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -190,29 +198,29 @@ export default function Footer() {
             className="flex items-center"
             whileHover={{ scale: 1.02 }}
           >
-            <div className="p-2 rounded-full bg-orange-100 dark:bg-orange-900/30 mr-4">
+            <div className="p-1.5 sm:p-2 rounded-full bg-orange-100 dark:bg-orange-900/30 mr-3 sm:mr-4">
               <Mail size={16} className="text-orange-500" />
             </div>
-            <a href={`mailto:${t('footer.address.email')}`} className="text-gray-600 dark:text-gray-300 hover:text-orange-500 text-sm font-medium">
+            <a href={`mailto:${t('footer.address.email')}`} className="text-gray-600 dark:text-gray-300 hover:text-orange-500 text-xs sm:text-sm font-medium">
               {t('footer.address.email')}
             </a>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <motion.div 
               className="flex items-start"
               whileHover={{ scale: 1.02 }}
             >
-              <div className="p-2 rounded-full bg-orange-100 dark:bg-orange-900/30 mr-4 mt-1">
+              <div className="p-1.5 sm:p-2 rounded-full bg-orange-100 dark:bg-orange-900/30 mr-3 sm:mr-4 mt-1">
                 <Phone className="text-orange-500 h-4 w-4" />
               </div>
               <div>
-                <p className="text-gray-700 dark:text-gray-200 text-sm font-medium mb-1">{t('contact.form.phone')}</p>
-                <a href={`tel:${t('footer.address.phone1')}`} className="text-gray-600 dark:text-gray-300 hover:text-orange-500 text-sm">
+                <p className="text-gray-700 dark:text-gray-200 text-xs sm:text-sm font-medium mb-1">{t('contact.form.phone')}</p>
+                <a href={`tel:${t('footer.address.phone1')}`} className="text-gray-600 dark:text-gray-300 hover:text-orange-500 text-xs sm:text-sm">
                   {t('footer.address.phone1')}
                 </a>
                 <br />
-                <a href={`tel:${t('footer.address.phone2')}`} className="text-gray-600 dark:text-gray-300 hover:text-orange-500 text-sm">
+                <a href={`tel:${t('footer.address.phone2')}`} className="text-gray-600 dark:text-gray-300 hover:text-orange-500 text-xs sm:text-sm">
                   {t('footer.address.phone2')}
                 </a>
               </div>
@@ -221,18 +229,18 @@ export default function Footer() {
               className="flex items-start"
               whileHover={{ scale: 1.02 }}
             >
-              <div className="p-2 rounded-full bg-orange-100 dark:bg-orange-900/30 mr-4 mt-1">
+              <div className="p-1.5 sm:p-2 rounded-full bg-orange-100 dark:bg-orange-900/30 mr-3 sm:mr-4 mt-1">
                 <MapPin className="text-orange-500 h-4 w-4" />
               </div>
               <div>
-                <p className="text-gray-700 dark:text-gray-200 text-sm font-medium mb-1">{t('footer.address.title')}</p>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-2">
+                <p className="text-gray-700 dark:text-gray-200 text-xs sm:text-sm font-medium mb-1">{t('footer.address.title')}</p>
+                <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm mb-2">
                   {t('footer.address.kano')}
                 </p>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-2">
+                <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm mb-2">
                   {t('footer.address.kaduna')}
                 </p>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
+                <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm">
                   {t('footer.address.abuja')}
                 </p>
               </div>
@@ -242,13 +250,13 @@ export default function Footer() {
         
         {/* Bottom Bar */}
         <motion.div 
-          className="mt-16 pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center"
+          className="mt-8 sm:mt-16 pt-4 sm:pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 md:mb-0">
+          <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-4 md:mb-0">
             © {currentYear} GIGEE Consult Ltd. {t('common.allRightsReserved')}
           </p>
           <motion.div
@@ -259,11 +267,11 @@ export default function Footer() {
             <Button
               variant="ghost"
               size="sm"
-              className="text-gray-500 hover:text-orange-500 p-2 rounded-full"
+              className="text-gray-500 hover:text-orange-500 p-1.5 sm:p-2 rounded-full text-xs sm:text-sm"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-              <span className="mr-2 text-sm">{t('common.backToTop')}</span>
-              <ArrowUpRight className="h-4 w-4" />
+              <span className="mr-2">{t('common.backToTop')}</span>
+              <ArrowUpRight className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
           </motion.div>
         </motion.div>

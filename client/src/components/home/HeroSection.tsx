@@ -106,7 +106,7 @@ export default function HeroSection() {
                   className="flex items-center bg-gray-50 dark:bg-gray-900 py-2 px-4 rounded-full"
                 >
                   {highlights[activeHighlight].icon}
-                  <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                  <span className="ml-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
                     {highlights[activeHighlight].text}
                   </span>
                 </motion.div>
@@ -117,7 +117,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="text-3xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white leading-tight tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300"
+              className="text-2xl sm:text-3xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white leading-tight tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300"
             >
               Empowering Organizations Through Strategic Excellence
             </motion.h1>
@@ -126,7 +126,7 @@ export default function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mb-6"
+              className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mb-6"
             >
               GIGEE CONSULT LTD is a dynamic and results-driven firm specializing in Consultancy Services, Capacity Building, Project Management, and General Supplies. We empower lives through excellent service delivery.
             </motion.p>
@@ -142,9 +142,9 @@ export default function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.4 }}
-              className="mt-6 flex gap-4 flex-wrap"
+              className="mt-6 flex flex-col sm:flex-row gap-4 flex-wrap"
             >
-              <Button
+              <Button 
                 variant="gigeeFilled"
                 size="lg"
                 className="group transition-all hover:shadow-lg hover:translate-y-[-2px]"
@@ -160,7 +160,7 @@ export default function HeroSection() {
                 </motion.div>
               </Button>
               
-              <Button
+              <Button 
                 variant="gigeeOutline"
                 size="lg"
                 className="group transition-all hover:shadow-md"
